@@ -10,7 +10,7 @@ export default function Header() {
             <div className='h-full flex items-center justify-evenly w-[500px]'>
 
                 <Link to="/" className='bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent hover:border-b'>Home</Link>
-                <Link to="/" className='bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent hover:border-b'>Products</Link>
+                <Link to="/product" className='bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent hover:border-b'>Products</Link>
                 <Link to="/" className='bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent hover:border-b'>About Us</Link>
                 <Link to="/" className='bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent hover:border-b'>Contact Us</Link>
             </div>

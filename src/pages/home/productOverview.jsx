@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductNotFound from '../../components/productNotFound.jsx';
 import ImageSlider from "../../components/imageSlider.jsx";
+import { addToCard } from "../../utils/cardFunction.js";
+import toast from "react-hot-toast";
 
 export default function ProductOverview() {
 
@@ -35,6 +37,11 @@ export default function ProductOverview() {
             }
         ,[])
 
+        function onAddToCartClick(){
+            addToCard(productData.productId,1);
+            toast.success(productData.productId +"Product added to cart successfully!");
+        }
+
 
     return (
         <div className="w-full h-[calc(100vh-70px)] bg-gray-100 p-4">
@@ -64,7 +71,9 @@ export default function ProductOverview() {
                             <span className="text-red-300 text-sm italic line-through mr-3">${productData.price}</span> 
                             
                     }</p>
-                        <button className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors duration-200">
+                        <button onClick={onAddToCartClick}
+                        
+                        className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors duration-200">
                             Add to Cart
                         </button>
                         <button className="ml-4 px-6 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-colors duration-200">
