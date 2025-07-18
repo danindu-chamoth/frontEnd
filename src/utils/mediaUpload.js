@@ -14,6 +14,12 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = 'https://bitcemqbdgcxeqanktdo.supabase.co';
 const anonKey = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpdGNlbXFiZGdjeGVxYW5rdGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3MzM3NzIsImV4cCI6MjA2ODMwOTc3Mn0.-Idu-2VXhY8Egx8Skhw4LWyoOnnwLGZj1Mz4qrwiBnc`;
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // STEP 3: ☁️  CREATE SUPABASE CONNECTION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const supabase = createClient(supabaseUrl, anonKey);
+
+        
 /**
  * 📁 FILE UPLOAD FUNCTION
  * 
@@ -48,10 +54,7 @@ export default function FileUploadToSupabase(file) {
         // Extract file extension (e.g., "photo.jpg" → "jpg")
         const extension = fileName.split('.')[fileName.split('.').length - 1];
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // STEP 3: ☁️  CREATE SUPABASE CONNECTION
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        const supabase = createClient(supabaseUrl, anonKey);
+        
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // STEP 4: 🔢 GENERATE UNIQUE FILENAME

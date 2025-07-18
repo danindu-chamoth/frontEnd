@@ -45,7 +45,7 @@ export default function LoginPage() {
             <div className="bg-white p-6 rounded border max-w-md w-full">
                 <div className="text-center mb-6">
                     <img 
-                        src='/logo.jpg' 
+                        src='/logo.png' 
                         className='w-20 h-20 rounded mx-auto mb-4' 
                     />
                     <h1 className="text-xl font-bold mb-2">Welcome Back</h1>

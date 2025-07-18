@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaTrash, FaEdit,FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 
 export default function AdminProductPage() {
@@ -26,6 +26,9 @@ export default function AdminProductPage() {
         }
         
     }, [ productsLoad])
+
+
+    const navigate = useNavigate();
 
 
 
@@ -104,7 +107,13 @@ export default function AdminProductPage() {
                                     </td>
                                     <td className="px-4 py-3 text-center">
                                         <div className="flex justify-center space-x-2">
-                                            <button className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                            <button className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+
+                                            onClick={() => {
+                                                navigate(`/admin/Product/editProduct`,{state:{products:product}});
+                                            }}
+                                            
+                                            >
                                                 <FaEdit className="w-3 h-3" />
                                             </button>
                                             <button className="p-2 bg-red-500 text-white rounded hover:bg-red-600"

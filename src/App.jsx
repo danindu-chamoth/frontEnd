@@ -16,12 +16,14 @@ function App() {
     <> 
       <BrowserRouter>
       <Toaster />
-        <Routes path="/">
-          <Route path="/" element={<HomePage />} />
+        <Routes >
+          <Route path="/*" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/singup" element={<SignUpPage />} />
           <Route path="/admin/*" element={<AdminHomePage />} />
-          <Route path ="/test" element={<FileUploadTest/> }/>
+          <Route path="/test" element={<FileUploadTest/> }/>
+          
+
           <Route path="*" element={<h1>404 error</h1>}/>
         </Routes>
       </BrowserRouter>      
