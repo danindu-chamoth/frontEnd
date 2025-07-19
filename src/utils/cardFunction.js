@@ -43,6 +43,36 @@ export function clearCard(){
     return [];
 } 
 
+export function deleteItem(productID){
+    const cart = loadCard();
+    const index = cart.findIndex((item) => {
+        return item.productId === productID;
+    })
+
+    if(index != -1){
+        cart.splice(index, 1);
+        saveCard(cart);
+    }
+}
+
+export function orderCheckOutClick(){
+    // Add your checkout logic here
+    const cart = loadCard();
+    
+    if(cart.length === 0){
+        alert("Your cart is empty!");
+        return;
+    }
+    
+    // Process checkout logic
+    console.log("Processing checkout for:", cart);
+    
+    // After successful checkout, you might want to clear the cart
+    // clearCard();
+    
+    // Add your specific checkout implementation here
+}
+
 /*
 COMPREHENSIVE STEP-BY-STEP EXPLANATION OF THE SHOPPING CART FUNCTIONALITY:
 
