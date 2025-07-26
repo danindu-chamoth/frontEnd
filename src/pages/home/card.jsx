@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { clearCard, loadCard } from "../../utils/cardFunction"; // Assuming you have a utility function to load the cart
+import { clearCard, loadCard,deleteItem } from "../../utils/cardFunction"; // Assuming you have a utility function to load the cart
 import CartCart from "../../components/cartCart"; // Assuming you have a CartCart component to display each item in the cart
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Card(){
 
-    const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [labealTotal, setLabelTotal] = useState(0);
+    const [cart, setCart] = useState([]); // Assuming you have a utility function to load the cart
+    const [total, setTotal] = useState(0); // Assuming you meant labelTotal instead of labealTotal
+    const [labelTotal, setLabelTotal] = useState(0); // Assuming you meant labelTotal instead of labealTotal
+    const navigate = useNavigate(); // Navigation hook to programmatically navigate
 
     useEffect(() => {
-
+        console.log("Cart Items:", loadCard());
         setCart(loadCard())
         // Use POST request to send cart data to get quote
         axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/orders/quote`,
@@ -31,10 +33,21 @@ export default function Card(){
         
     }, [])
 
+    function onOrderCheckOutClick(){
+    
+    navigate("/shipping", {          
+        state: {
+            items: loadCard()  // Use the current cart state instead of loadCard()
+        }
+    });
+}
+
     function clearCart(){
         clearCard();
         setCart([]);
     }
+
+    
     return (
         <div className="w-full max-w-4xl mx-auto h-full bg-white shadow-xl rounded-lg border border-gray-200">
             {/* Header Section */}
@@ -78,7 +91,7 @@ export default function Card(){
                         <div className="space-y-2">
                             <div className="flex justify-between items-center py-2">
                                 <span className="text-gray-600">Subtotal:</span>
-                                <span className="text-gray-800 font-medium">R: {labealTotal.toFixed(2)}</span>
+                                <span className="text-gray-800 font-medium">R: {labelTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between items-center py-2">
                                 <span className="text-gray-600">quantity:</span>
@@ -97,7 +110,7 @@ export default function Card(){
 
                     {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3">
-                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+                        <button onClick={onOrderCheckOutClick} className="flex-1 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
                             Proceed to Checkout
                         </button>
                         <button 

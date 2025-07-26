@@ -1,11 +1,51 @@
-import{Link,Routes,Route } from "react-router-dom";
+import{Link,Routes,Route, useNavigate } from "react-router-dom";
 import { MdDashboard, } from "react-icons/md";
 import { FaShoppingCart, FaUsers, FaBox } from "react-icons/fa";
 import AdminProductPage from "./admin/adminProductPage";
 import AdminCustomersPage from "./admin/admiCustomersPage";
 import AddProductFrom from "./admin/addProductFrom";
 import AdminEditProductFrom from "./admin/adminEditProductfrom";
+import AdminOrdersPage from "./admin/adminOrderPgae";
+import AdminDashBoard from "./admin/adminDashBoard";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 export default function AdminHomePage() {
+
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        if (!token) {
+            toast.error("You are not logged in");
+            navigate("/login");
+            return 
+        }
+        axios.get(import.meta.env.VITE_BACKEND_URL + "/api/User", {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        
+        .then(response => {
+            // Handle successful response
+            console.log(response.data);
+            if (response.data.type != "admin") {
+                toast.error("You are not Admin pls login as Admin");
+                navigate("/login");
+            }else{
+                setUser(response.data);
+                toast.success("Welcome to Admin Panel");
+            }
+        })
+        .catch(error => {
+            // Handle error
+            console.error(error);
+            toast.error("Failed to fetch user data");
+            
+        });
+        console.log(axios);
+
+    }, []);
 
     return(
         <div className="bg-gray-100 w-full h-screen flex">
@@ -27,10 +67,7 @@ export default function AdminHomePage() {
                 {/* Navigation Menu */}
                 <nav className="px-4 py-4">
                     <div className="space-y-2">
-                        <Link to="/admin/Dashboard" className="flex items-center px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded">
-                            <MdDashboard className="mr-3" />
-                            <span>Dashboard</span>
-                        </Link>
+                        
                         
                         <Link to="/admin/Product" className="flex items-center px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded">
                             <FaBox className="mr-3" />
@@ -52,13 +89,16 @@ export default function AdminHomePage() {
             <div className="flex-1 h-screen bg-white overflow-auto">
                 {/* Main Content Area */}
                 <div className="p-6">
+                    {user != null && 
+                    
                     <Routes path="/*">
-                        <Route path="/Dashboard" element={<h1> dashBoard </h1>} />
+                        <Route path="/" element={<AdminDashBoard/>} />
                         <Route path="/Product" element={<AdminProductPage />} />
-                        <Route path="/orders" element={ <h1> order page </h1> } />
+                        <Route path="/orders" element={ <AdminOrdersPage/>  } />
                         <Route path="/Product/addProduct" element={<AddProductFrom/>}/>
                         <Route path ="/Product/editProduct" element={<AdminEditProductFrom/>}/>
                         <Route path="/customers" element={<AdminCustomersPage/>} />
+
                         <Route path="*" element={
                             <div className="bg-gray-100 p-6 rounded text-center">
                                 <h1 className="text-2xl font-bold mb-2">404 - Page Not Found</h1>
@@ -66,6 +106,14 @@ export default function AdminHomePage() {
                             </div>
                         } />
                     </Routes>
+                    }
+                    {
+                        user === null && 
+                        <div className="flex items-center justify-center h-full">
+                            {/* Animation loading page */}
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

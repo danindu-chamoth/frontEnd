@@ -17,7 +17,7 @@ export default function CartCart(props) {
                     setProductLoaded(true);
                     
                 }else{
-                    deleteItem(productId);
+                   deleteItem(productId);
                 }
 
                 
@@ -31,7 +31,9 @@ export default function CartCart(props) {
 
   return (
     <div>
+        
         <div className="flex flex-row w-full h-[120px] bg-white mb-4 rounded-lg shadow-md">
+            
             <div className="w-[20%] h-full flex items-center justify-center">
                 {product && (
                     <img src={product.images[0]} alt={product.name} className="w-24 h-24 object-cover rounded-lg" />

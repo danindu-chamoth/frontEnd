@@ -4,6 +4,7 @@ import LoginPage from './loginPage.jsx';
 import ProductOverview from './home/productOverview.jsx';
 import Product from './home/product.jsx';
 import Card from './home/card.jsx';
+import ShippingPage from './home/shipping.jsx';
 
 
 export default function HomePage() {
@@ -18,6 +19,7 @@ export default function HomePage() {
             <Route path="/productInfo/:id" element={<ProductOverview/>}/>
             <Route path="/product" element={<Product/>} />
             <Route path="/card" element={<Card/>} />
+            <Route path="/shipping" element={<ShippingPage/>} />
           </Routes>
         </div>
         
